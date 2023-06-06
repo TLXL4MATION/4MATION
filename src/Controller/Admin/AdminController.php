@@ -2,7 +2,15 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Adresse;
+use App\Entity\Campus;
+use App\Entity\Creneau;
+use App\Entity\Formateur;
+use App\Entity\GroupePromotion;
+use App\Entity\ModuleFormation;
+use App\Entity\Promotion;
 use App\Entity\Salle;
+use App\Repository\CreneauRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -36,12 +44,19 @@ class AdminController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('App');
+            ->setTitle('4MATION');
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToCrud('Les Adresses', 'fa-solid fa-location-dot', Adresse::class);
+        yield MenuItem::linkToCrud('Les Campus', 'fa-solid fa-building-columns', Campus::class);
+        yield MenuItem::linkToCrud('Les Créneaux', 'fa-solid fa-calendar-days', Creneau::class);
+        yield MenuItem::linkToCrud('Les Formateurs', 'fa-solid fa-user-group', Formateur::class);
+        yield MenuItem::linkToCrud('Les Groupes Promotion', 'fa-solid fa-people-group', GroupePromotion::class);
+        yield MenuItem::linkToCrud('Les Modules de Formation', 'fa-solid fa-sheet-plastic', ModuleFormation::class);
+        yield MenuItem::linkToCrud('Les Promotions', 'fa-solid fa-globe', Promotion::class);
         yield MenuItem::linkToCrud('Les salles', 'fa-solid fa-house-laptop', Salle::class);
     }
 }
