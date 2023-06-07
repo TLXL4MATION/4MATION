@@ -30,6 +30,9 @@ class Formateur
     #[ORM\OneToMany(mappedBy: 'formateur', targetEntity: Creneau::class)]
     private Collection $creneaux;
 
+    #[ORM\OneToOne(inversedBy: 'formateur', cascade: ['persist', 'remove'])]
+    private ?User $utilisateur = null;
+
     public function __construct()
     {
         $this->formationsPossibles = new ArrayCollection();
@@ -127,6 +130,18 @@ class Formateur
                 $creneaux->setFormateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?User
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?User $utilisateur): self
+    {
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }
