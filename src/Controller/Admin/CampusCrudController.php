@@ -2,11 +2,9 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Adresse;
 use App\Entity\Campus;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class CampusCrudController extends AbstractCrudController
@@ -21,11 +19,9 @@ class CampusCrudController extends AbstractCrudController
         return [
             TextField::new('nom'),
             AssociationField::new("adresse")
-                ->setCrudController(AdresseCrudController::class)
-                ->renderAsEmbeddedForm()
-//            CollectionField::new('adresse')
-//                ->allowAdd(true)
-//                ->useEntryCrudForm()
+                ->onlyOnForms()->renderAsEmbeddedForm(AdresseCrudController::class),
+            AssociationField::new("adresse")
+                ->hideOnForm()->renderAsNativeWidget()
         ];
     }
 }

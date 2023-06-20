@@ -19,6 +19,7 @@ class AdresseCrudController extends AbstractCrudController
             TextField::new('numero'),
             TextField::new('rue'),
             TextField::new('codePostal'),
+            TextField::new('ville'),
             TextField::new('pays'),
         ];
     }

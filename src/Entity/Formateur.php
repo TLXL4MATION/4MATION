@@ -33,6 +33,9 @@ class Formateur
     #[ORM\OneToOne(inversedBy: 'formateur', cascade: ['persist', 'remove'])]
     private ?User $utilisateur = null;
 
+    #[ORM\OneToOne(inversedBy: 'formateur', cascade: ['persist', 'remove'])]
+    private ?Adresse $adresse = null;
+
     public function __construct()
     {
         $this->formationsPossibles = new ArrayCollection();
@@ -145,4 +148,22 @@ class Formateur
 
         return $this;
     }
+
+    public function getAdresse(): ?Adresse
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?Adresse $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getNom() . " " . $this->prenom;
+    }
+
 }

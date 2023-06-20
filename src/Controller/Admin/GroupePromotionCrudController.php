@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\GroupePromotion;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class GroupePromotionCrudController extends AbstractCrudController
 {
@@ -12,14 +14,14 @@ class GroupePromotionCrudController extends AbstractCrudController
         return GroupePromotion::class;
     }
 
-    /*
+
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            TextField::new('nom'),
+            AssociationField::new('promotion')
+                ->setFormTypeOption('choice_label', 'nom'),
         ];
     }
-    */
+
 }

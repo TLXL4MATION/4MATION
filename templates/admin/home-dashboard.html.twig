@@ -1,12 +1,20 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
-    {% block content_title %}The Title of the Page{% endblock %}
+
+    {% block content_title %}Calendrier{% endblock %}
     {% block page_actions %}
         <a class="btn btn-primary" href="...">Some Action</a>
     {% endblock %}
 
     {% block main %}
         <table class="datagrid">
+            <div class="container" style="max-width: 600px">
+                <div class="card">
+                    <div id="calendar-holder"></div>
+                </div>
+            </div>
+        </table>
+        {#        <table class="datagrid">
             <thead>
             <tr>
                 <td>Some Column</td>
@@ -15,5 +23,6 @@
             </thead>
             <tbody>
             </tbody>
-        </table>
+        </table> #}
     {% endblock %}
+
