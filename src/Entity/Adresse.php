@@ -28,6 +28,12 @@ class Adresse
     #[ORM\OneToOne(mappedBy: 'adresse', cascade: ['persist', 'remove'])]
     private ?Campus $campus = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $ville = null;
+
+    #[ORM\OneToOne(mappedBy: 'adresse', cascade: ['persist', 'remove'])]
+    private ?Formateur $formateur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,4 +108,46 @@ class Adresse
 
         return $this;
     }
+
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?string $ville): self
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->numero . " " . $this->rue .
+            ", " . $this->getCodePostal() . " " .
+            $this->ville . " (" . $this->pays . ")";
+    }
+
+    public function getFormateur(): ?Formateur
+    {
+        return $this->formateur;
+    }
+
+    public function setFormateur(?Formateur $formateur): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($formateur === null && $this->formateur !== null) {
+            $this->formateur->setAdresse(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($formateur !== null && $formateur->getAdresse() !== $this) {
+            $formateur->setAdresse($this);
+        }
+
+        $this->formateur = $formateur;
+
+        return $this;
+    }
+
 }

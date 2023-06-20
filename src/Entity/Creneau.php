@@ -157,4 +157,11 @@ class Creneau
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getModuleFormation()->getNom() . "\n<b>" . $this->getGroupePromotion()->getNom()."</b>";
+    }
+
+
 }
