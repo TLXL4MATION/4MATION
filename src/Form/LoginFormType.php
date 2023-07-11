@@ -13,30 +13,25 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class RegistrationFormType extends AbstractType
+class LoginFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email',EmailType::class, [ 'label'=>"Email", 'constraints' => [
+            ->add('_username', EmailType::class, ["property_path"=> 'email','label' => "Email",'attr' => [
+                'name' => '_username', // Ajoutez cette ligne pour définir l'attribut name à "_username"
+            ], 'constraints' => [
                 new NotBlank([
                     'message' => 'L\'email ne peut pas être vide.',
-                ])]])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-               'label'=> 'Conditions d\'utilisations',
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
-            ->add('plainPassword', PasswordType::class, [
+                ])
+            ]])
+            ->add('_password', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
+                "property_path"=> 'password',
                 'mapped' => false,
-                'label'=>"Mot de passe",
-                'attr' => ['autocomplete' => 'new-password'],
+                'label' => "Mot de passe",
+                'attr' => [  'name' => '_password','autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Le mot de passe ne peut pas être vide.',
@@ -48,8 +43,12 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-        ;
+            ]);
+    }
+
+    public function getBlockPrefix()
+    {
+        return ''; // Retourne une chaîne vide pour supprimer le préfixe par défaut
     }
 
     public function configureOptions(OptionsResolver $resolver): void
