@@ -24,7 +24,7 @@ class LoginController extends AbstractController
         $form = $this->createForm(LoginFormType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             return $this->redirectToRoute('admin');
         }
             return $this->render('login/login.html.twig', [

@@ -3,7 +3,7 @@
 {% set currentYear = date('Y') %}
 {% set currentYearString = currentYear|date('Y') %}
 
-{% block title %}Enregistrez-vous{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -12,10 +12,18 @@
 
 {% block body %}
 
+ 
+
 <div class="form-signin text-center">
+
     {{ form_start(loginForm) }}
     <img class="mb-4 rounded" src="{{ asset('img/logo4mation.png') }}" alt="" width="80%">
-    <h1 class="h3 mb-3 fw-normal">Se connecter</h1>
+    <h1 class="h3 mb-3 fw-normal">Connexion</h1>
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+    L'email et/ou le mot de passe est incorrect
+    </div>
+{% endif %}
 
     <div class="form-floating">
         <input type="email" class="form-control {% if form_errors(loginForm._username) %}is-invalid{% endif %}" id="floatingInput" placeholder="name@example.com"
@@ -43,6 +51,8 @@
     <button class="w-100 btn btn-lg btn-primary bg-primaire" type="submit">Se connecter</button>
     <p class="mt-5 mb-3 text-muted">© TLXL - 4MAt!on -   {{ currentYearString }}</p>
     {{ form_end(loginForm) }}
+
+
 </div>
 
 {% endblock %}
