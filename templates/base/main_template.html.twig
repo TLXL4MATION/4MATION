@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <body>
+       
+    {% include 'base/header.html.twig' %} {# Inclusion du header #}
+
+<div class="container-fluid">
+  <div class="row">
+   
+
+     {% include 'base/sidebar.html.twig' %} {# Inclusion de la sidebar #}
+
+    
+
+     {% block content %}{% endblock %} {# Contenu variable #}
+
+   </div>
+ </div>
+
+    
+    </body>
+
+{% endblock %}
+
+
