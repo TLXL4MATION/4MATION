@@ -36,6 +36,12 @@ class Formateur
     #[ORM\OneToOne(inversedBy: 'formateur', cascade: ['persist', 'remove'])]
     private ?Adresse $adresse = null;
 
+    #[ORM\Column]
+    private ?bool $actif = false;
+
+    #[ORM\Column]
+    private ?bool $mdpInitialise = false;
+
     public function __construct()
     {
         $this->formationsPossibles = new ArrayCollection();
@@ -164,6 +170,38 @@ class Formateur
     public function __toString(): string
     {
         return $this->getNom() . " " . $this->prenom;
+    }
+
+    public function isActif(): ?bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): self
+    {
+        $this->actif = $actif;
+
+        return $this;
+    }
+
+    public function isMdpInitialise(): ?bool
+    {
+        return $this->mdpInitialise;
+    }
+
+    public function setMdpInitialise(bool $mdpInitialise): self
+    {
+        $this->mdpInitialise = $mdpInitialise;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMdpInitialiseText(): string
+    {
+        return $this->mdpInitialise ? "Changé" : "Non Changé";
     }
 
 }
