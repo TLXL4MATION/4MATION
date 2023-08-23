@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mail{% endblock %}
+
+{% block body %}
+    <html data-bs-theme="light">
+        <div class="container">
+            <div class="card text-center mt-5">
+                <div class="card-header">Voici votre mot de passe pour la premiere connexion</div>
+                <div class="card-body">
+                    <h5 class="card-title">Cliqué sur le liens si dessous pour changer ce mot de passe</h5>
+                    <p class="card-text">Votre Mot de passe : {{ password }}</p>
+                    <a href="{{ path('app_login') }}" class="btn btn-primary">Changer le mot de passe</a>
+                </div>
+            </div>
+        </div>
+    </html>
+{% endblock %}
+

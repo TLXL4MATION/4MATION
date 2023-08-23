@@ -7,6 +7,7 @@ use App\Entity\ModuleFormation;
 use Doctrine\DBAL\Types\TextType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -33,17 +34,10 @@ class FormateurCrudController extends AbstractCrudController
                 ->setFormTypeOption('choice_label', 'nom'),
             AssociationField::new('formationsPossibles')
                 ->setFormTypeOption('choice_label', 'nom'),
+            TextField::new("mdpInitialiseText", "Mot de passe par défaut")
+                ->hideOnForm(),
+            BooleanField::new("actif", "Activé ?")
+                ->hideOnForm()
         ];
     }
-
-    /*
-    public function configureFields(string $pageName): iterable
-    {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
-    }
-    */
 }
