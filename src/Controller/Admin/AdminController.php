@@ -59,4 +59,5 @@ class AdminController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Les Promotions', 'fa-solid fa-globe', Promotion::class);
         yield MenuItem::linkToCrud('Les salles', 'fa-solid fa-house-laptop', Salle::class);
     }
+
 }
