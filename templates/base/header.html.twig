@@ -1,14 +1,26 @@
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <div>
-        <img class="logo-dashboard" src="{{ asset('img/logo/logo_4mation_white_wo_bg.png') }}" alt="Logo">
-    </div>
-    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+	<div>
+		<img class="logo-dashboard" src="{{ asset('img/logo/logo_4mation_white_wo_bg.png') }}" alt="Logo">
+	</div>
+	<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
 
-    <div class="navbar-nav">
-        <div class="nav-item text-nowrap">
-            <a class="nav-link px-3" href="#">Sign out</a>
-        </div>
-    </div>
+
+	<div class="navbar-nav ml-auto">
+		<div class="nav-item text-nowrap">
+			<div class="d-flex">
+				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+					<p class="nav-link px-3 my-auto" id="userEmail">{{ app.user.email }}</p>
+
+				{% else %}
+					<a class="nav-link px-3" href="{{ path('app_login') }}">Se connecter</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
 </header>
+
+
+{% include '/profil/user_sidebar.html.twig' %}
+ <script src="{{ asset('js/user_sidebar.js') }}"></script>

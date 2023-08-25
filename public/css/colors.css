@@ -4,6 +4,10 @@
   border: 1px solid #5436BC !important
 }
 
+.primaire{
+  color: #553CA3 !important;
+}
+
 
 .bg-primaire:hover{
   background-color: black ;
@@ -24,3 +28,5 @@
 
 .navbar {
   background-color: #553CA3 !important;}
+
+  
