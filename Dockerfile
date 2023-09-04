@@ -8,7 +8,7 @@
 # Temporary fix for https://github.com/dunglas/mercure/issues/770
 FROM caddy:2.7-builder-alpine AS app_caddy_builder
 
-RUN xcaddy build v2.6.4 \
+RUN xcaddy build \
 	--with github.com/dunglas/mercure/caddy \
 	--with github.com/dunglas/vulcain/caddy
 
