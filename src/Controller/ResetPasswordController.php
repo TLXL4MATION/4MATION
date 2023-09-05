@@ -26,7 +26,7 @@ class ResetPasswordController extends AbstractController
 {
     use ResetPasswordControllerTrait;
 
-    const MAIL = "test@dlr-peugeot.fr";
+    const MAIL = "noreply.4mation@gmail.com";
 
     public function __construct(
         private ResetPasswordHelperInterface $resetPasswordHelper,

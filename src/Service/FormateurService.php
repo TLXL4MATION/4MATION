@@ -11,6 +11,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class FormateurService
 {
+    const MAIL = "noreply.4mation@gmail.com";
     private UserPasswordHasherInterface $userPasswordHasher;
     private MailerInterface $mailer;
 
@@ -50,7 +51,7 @@ class FormateurService
     {
         $mail = $formateur->getUtilisateur()->getEmail();
         $email = (new TemplatedEmail())
-            ->from('test@dlr-peugeot.fr')
+            ->from(self::MAIL)
             ->to($mail)
             //->cc('cc@example.com')
             //->bcc('bcc@example.com')
