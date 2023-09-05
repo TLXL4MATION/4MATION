@@ -22,6 +22,8 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            AssociationField::new('campus')
+                ->setFormTypeOption('choice_label', 'nom'),
             TextField::new('email'),
         ];
     }

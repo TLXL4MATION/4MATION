@@ -27,10 +27,14 @@ class Campus
     #[ORM\OneToMany(mappedBy: 'campus', targetEntity: Salle::class)]
     private Collection $salles;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'campus')]
+    private Collection $users;
+
     public function __construct()
     {
         $this->formateurs = new ArrayCollection();
         $this->salles = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,6 +129,33 @@ class Campus
     public function __toString(): string
     {
         return ($this->nom);
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addCampus($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeCampus($this);
+        }
+
+        return $this;
     }
 
 

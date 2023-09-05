@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -32,6 +34,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToOne(mappedBy: 'utilisateur', cascade: ['persist', 'remove'])]
     private ?Formateur $formateur = null;
+
+    #[ORM\ManyToMany(targetEntity: Campus::class, inversedBy: 'users')]
+    private Collection $campus;
+
+    public function __construct()
+    {
+        $this->campus = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -121,6 +131,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->formateur = $formateur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Campus>
+     */
+    public function getCampus(): Collection
+    {
+        return $this->campus;
+    }
+
+    public function addCampus(Campus $campus): self
+    {
+        if (!$this->campus->contains($campus)) {
+            $this->campus->add($campus);
+        }
+
+        return $this;
+    }
+
+    public function removeCampus(Campus $campus): self
+    {
+        $this->campus->removeElement($campus);
 
         return $this;
     }

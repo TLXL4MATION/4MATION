@@ -21,9 +21,6 @@ class Formateur
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
-    #[ORM\ManyToOne(inversedBy: 'formateurs')]
-    private ?Campus $campusPrincipal = null;
-
     #[ORM\ManyToMany(targetEntity: ModuleFormation::class, inversedBy: 'formateurs')]
     private Collection $formationsPossibles;
 
@@ -73,18 +70,6 @@ class Formateur
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getCampusPrincipal(): ?Campus
-    {
-        return $this->campusPrincipal;
-    }
-
-    public function setCampusPrincipal(?Campus $campusPrincipal): self
-    {
-        $this->campusPrincipal = $campusPrincipal;
 
         return $this;
     }
