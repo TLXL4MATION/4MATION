@@ -43,6 +43,9 @@ class Creneau
     #[ORM\Column(nullable: true)]
     private ?bool $accepte = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $envoye = null;
+
     public function __construct()
     {
         $this->sallesSecondaires = new ArrayCollection();
@@ -174,6 +177,18 @@ class Creneau
     public function setAccepte(?bool $accepte): self
     {
         $this->accepte = $accepte;
+
+        return $this;
+    }
+
+    public function isEnvoye(): ?bool
+    {
+        return $this->envoye;
+    }
+
+    public function setEnvoye(?bool $envoye): self
+    {
+        $this->envoye = $envoye;
 
         return $this;
     }
