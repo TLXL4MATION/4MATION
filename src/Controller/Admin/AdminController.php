@@ -10,6 +10,7 @@ use App\Entity\GroupePromotion;
 use App\Entity\ModuleFormation;
 use App\Entity\Promotion;
 use App\Entity\Salle;
+use App\Entity\User;
 use App\Repository\CreneauRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -57,7 +58,9 @@ class AdminController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Les Groupes Promotion', 'fa-solid fa-people-group', GroupePromotion::class);
         yield MenuItem::linkToCrud('Les Modules de Formation', 'fa-solid fa-sheet-plastic', ModuleFormation::class);
         yield MenuItem::linkToCrud('Les Promotions', 'fa-solid fa-globe', Promotion::class);
-        yield MenuItem::linkToCrud('Les salles', 'fa-solid fa-house-laptop', Salle::class);
+        yield MenuItem::linkToCrud('Les Salles', 'fa-solid fa-house-laptop', Salle::class);
+        yield MenuItem::linkToCrud('Les Utilisateurs', 'fa-solid fa-user', User::class);
+
     }
 
 }
