@@ -40,6 +40,9 @@ class Creneau
     #[ORM\Column(type: Types::TEXT)]
     private ?string $commentaire = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $accepte = null;
+
     public function __construct()
     {
         $this->sallesSecondaires = new ArrayCollection();
@@ -161,6 +164,18 @@ class Creneau
     public function __toString(): string
     {
         return $this->getModuleFormation()->getNom() . "\n<b>" . $this->getGroupePromotion()->getNom()."</b>";
+    }
+
+    public function isAccepte(): ?bool
+    {
+        return $this->accepte;
+    }
+
+    public function setAccepte(?bool $accepte): self
+    {
+        $this->accepte = $accepte;
+
+        return $this;
     }
 
 
