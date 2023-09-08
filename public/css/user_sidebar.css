@@ -1,0 +1,43 @@
+.user_sidebar {
+    width: 300px;
+    position: fixed;
+    top: 100;
+    right: -300px;
+    height: 100%;
+    background-color: white;
+    transition: right 0.3s ease-in-out;
+    box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.3);
+    z-index: 5;
+}
+
+.user_sidebar.active {
+    right: 0;
+}
+
+.user_sidebar-content {
+    padding: 20px;
+}
+
+#closeUser_sidebar {
+    margin-top: 10px;
+    display: block;
+}
+
+.btn-close-sidebar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-size: 1.5rem;
+}
+
+.btn-close-sidebar:hover {
+    color:white;
+    background-color: red;
+}
+
+.sidebar-content {
+    margin-top: 50px;
+}

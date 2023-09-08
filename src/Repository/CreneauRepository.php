@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Creneau;
+use App\Entity\Formateur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,11 @@ class CreneauRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function getCreneauxByFormateur(Formateur $formateur)
+    {
+        return $this->creneauRepository->findCreneauxByFormateur($formateur);
     }
 
 //    /**

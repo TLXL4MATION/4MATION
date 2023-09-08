@@ -1,0 +1,19 @@
+<div id="userSidebar" class="user_sidebar">
+    <button id="closeUser_sidebar" class="btn btn-secondary btn-close-sidebar">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="sidebar-content p-4">
+        <h3 class="mb-4 primaire">Mes informations</h2>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="mb-3">
+                <strong>Email:</strong> {{ app.user.email }}
+            </div>
+            <div class="mb-3">
+                <strong>Rôle:</strong> {{ app.user.roles[0] }}
+            </div>
+            <a class="nav-link px-3 btn bg-primaire" href="{{ path('app_login') }}">Se déconnecter</a>
+        {% else %}
+            <p>Connectez-vous pour voir les informations</p>
+        {% endif %}
+    </div>
+</div>
