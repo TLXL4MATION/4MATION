@@ -1,41 +1,38 @@
-{% block stylesheets %}
-
-{% endblock %}
+{% block stylesheets %}{% endblock %}
 
 
-
-{% block javascripts %}
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
-    <script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
-    <script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', () => {
-            var calendarEl = document.getElementById('calendar-holder');
-
-              var calendar = new FullCalendar.Calendar(calendarEl, {
-                                timeZone: 'UTC',
-                                themeSystem: 'bootstrap5',
-                                locale: 'fr',
-                                headerToolbar: {
-                                left: 'prev,next today',
-                                center: 'title',
-                                right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-                                },
-                                weekText:"S",
-                                buttonText: {
-                                    today: 'Aujourd\'hui',
-                                    day: 'Jour',
-                                    week:'Semaine',
-                                    month:'Mois',
-                                    list:"Liste"
-                                    },
-                                weekNumbers: true,
-                                dayMaxEvents: true, // allow "more" link when too many events                      
-  });
-
-         
-            calendar.setOption('locale', 'fr')
-            calendar.render();
-        });
-    </script>
+{% block javascripts %} <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+	 <script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
+	 <script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
+	 <script type="text/javascript">
+		        document.addEventListener('DOMContentLoaded', () => {
+		            var calendarEl = document.getElementById('calendar-holder');
+		            var events = {{ events|json_encode|raw }};
+		              var calendar = new FullCalendar.Calendar(calendarEl, {
+		                                events: events,
+		                                timeZone: 'UTC',
+		                                themeSystem: 'bootstrap5',
+		                                locale: 'fr',
+		                                headerToolbar: {
+		                                left: 'prev,next today',
+		                                center: 'title',
+		                                right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+		                                },
+		                                weekText:"S",
+		                                buttonText: {
+		                                    today: 'Aujourd\'hui',
+		                                    day: 'Jour',
+		                                    week:'Semaine',
+		                                    month:'Mois',
+		                                    list:"Liste"
+		                                    },
+		                                weekNumbers: true,
+		                                dayMaxEvents: true, // allow "more" link when too many events                      
+		  });
+		
+		         
+		            calendar.setOption('locale', 'fr')
+		            calendar.render();
+		        });
+		    </script>
 {% endblock %}

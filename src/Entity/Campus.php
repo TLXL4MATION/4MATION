@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CampusRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CampusRepository::class)]
@@ -29,6 +30,12 @@ class Campus
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'campus')]
     private Collection $users;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $heureMin = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $heureMax = null;
 
     public function __construct()
     {
@@ -154,6 +161,30 @@ class Campus
         if ($this->users->removeElement($user)) {
             $user->removeCampus($this);
         }
+
+        return $this;
+    }
+
+    public function getHeureMin(): ?\DateTimeInterface
+    {
+        return $this->heureMin;
+    }
+
+    public function setHeureMin(?\DateTimeInterface $heureMin): self
+    {
+        $this->heureMin = $heureMin;
+
+        return $this;
+    }
+
+    public function getHeureMax(): ?\DateTimeInterface
+    {
+        return $this->heureMax;
+    }
+
+    public function setHeureMax(?\DateTimeInterface $heureMax): self
+    {
+        $this->heureMax = $heureMax;
 
         return $this;
     }

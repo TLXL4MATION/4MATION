@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Enum\RolesEnum;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,9 +13,29 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(Security $security): Response
     {
+
+        $user = $this->getUser();
+        // Vérifiez si l'utilisateur a le rôle "Formateur"
+        if (in_array(RolesEnum::Formateur, $this->getUser()->getRoles(), true)) {
+            $formateur = $user->getFormateur();
+
+            $events = [];
+            foreach ($formateur->getCreneaux() as $creneau) {
+                $events[] = [
+                    'id' => $creneau->getId(),
+                    'title' => $creneau->getCommentaire(),
+                    'start' => $creneau->getDateDebut()->format('Y-m-d H:i:s'),
+                    'end' => $creneau->getDateFin()->format('Y-m-d H:i:s'),
+                ];
+            }
+
+        } 
+
+
         return $this->render('pages/planning.html.twig', [
             'controller_name' => 'HomeController',
-            
+            'events' => $events,
+
         ]);
     }
 
@@ -42,5 +63,4 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
-
 }

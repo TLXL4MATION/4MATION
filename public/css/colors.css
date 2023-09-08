@@ -14,8 +14,27 @@
   box-shadow: none !important;
 }
 
+.fc-list-day-text, .fc-list-day-side-text{
+  color: #9EBC36 !important;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+}
 
+.fc-event-title-container, .fc-event-time, .fc-event{
+  background-color: #9EBC36!important;
+  border-color: #9EBC36!important;
+}
 
+.fc-event-main:hover *  {
+  background-color: #553CA3 !important; /* Changer la couleur de fond en rouge pour tous les enfants de .fc-event-main-frame lorsque .fc-event-main est survolé */
+  border-color: #553CA3 !important;
+}
+
+.fc .fc-list-event:hover td{
+  background-color: #553CA3 !important;
+  color: white;
+}
 .fc-button-active,
 .fc-daygrid-day-number{
   color: #9EBC36 !important;
@@ -79,4 +98,3 @@ text-decoration: none;
 .navbar {
   background-color: #553CA3 !important;}
 
-  
