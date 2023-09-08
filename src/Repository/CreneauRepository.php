@@ -40,9 +40,13 @@ class CreneauRepository extends ServiceEntityRepository
         }
     }
 
-    public function getCreneauxByFormateur(Formateur $formateur)
+    public function findCreneauxByFormateur(Formateur $formateur)
     {
-        return $this->creneauRepository->findCreneauxByFormateur($formateur);
+        return $this->createQueryBuilder('c')
+            ->where(':formateur MEMBER OF c.formateurs')
+            ->setParameter('formateur', $formateur)
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**
