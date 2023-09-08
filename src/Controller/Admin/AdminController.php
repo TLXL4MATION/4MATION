@@ -51,15 +51,15 @@ class AdminController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Les Adresses', 'fa-solid fa-location-dot', Adresse::class);
-        yield MenuItem::linkToCrud('Les Campus', 'fa-solid fa-building-columns', Campus::class);
-        yield MenuItem::linkToCrud('Les Créneaux', 'fa-solid fa-calendar-days', Creneau::class);
-        yield MenuItem::linkToCrud('Les Formateurs', 'fa-solid fa-user-group', Formateur::class);
-        yield MenuItem::linkToCrud('Les Groupes Promotion', 'fa-solid fa-people-group', GroupePromotion::class);
-        yield MenuItem::linkToCrud('Les Modules de Formation', 'fa-solid fa-sheet-plastic', ModuleFormation::class);
-        yield MenuItem::linkToCrud('Les Promotions', 'fa-solid fa-globe', Promotion::class);
-        yield MenuItem::linkToCrud('Les Salles', 'fa-solid fa-house-laptop', Salle::class);
-        yield MenuItem::linkToCrud('Les Utilisateurs', 'fa-solid fa-user', User::class);
+        yield MenuItem::linkToCrud('Adresses', 'fa-solid fa-location-dot', Adresse::class);
+        yield MenuItem::linkToCrud('Campus', 'fa-solid fa-building-columns', Campus::class);
+        yield MenuItem::linkToCrud('Créneaux', 'fa-solid fa-calendar-days', Creneau::class);
+        yield MenuItem::linkToCrud('Formateurs', 'fa-solid fa-user-group', Formateur::class);
+        yield MenuItem::linkToCrud('Groupes promotion', 'fa-solid fa-people-group', GroupePromotion::class);
+        yield MenuItem::linkToCrud('Modules de formation', 'fa-solid fa-sheet-plastic', ModuleFormation::class);
+        yield MenuItem::linkToCrud('Promotions', 'fa-solid fa-globe', Promotion::class);
+        yield MenuItem::linkToCrud('Salles', 'fa-solid fa-house-laptop', Salle::class);
+        yield MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-user', User::class);
 
     }
 

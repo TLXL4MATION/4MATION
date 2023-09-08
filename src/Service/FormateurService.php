@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Formateur;
+use App\Enum\RolesEnum;
 use App\Entity\User;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -36,7 +37,7 @@ class FormateurService
             )
         );
 
-        $user->setRoles(["FORMATEUR"]);
+        $user->setRoles([RolesEnum::Formateur]);
         $formateur->setUtilisateur($user);
 
         return $formateur;
