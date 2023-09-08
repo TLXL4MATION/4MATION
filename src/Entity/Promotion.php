@@ -21,6 +21,10 @@ class Promotion
     #[ORM\OneToMany(mappedBy: 'promotion', targetEntity: GroupePromotion::class)]
     private Collection $groupePromotions;
 
+    #[ORM\ManyToOne(inversedBy: 'promotions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Campus $campus = null;
+
     public function __construct()
     {
         $this->groupePromotions = new ArrayCollection();
@@ -76,6 +80,18 @@ class Promotion
     public function __toString(): string
     {
         return $this->getNom();
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
     }
 
 }

@@ -37,11 +37,15 @@ class Campus
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $heureMax = null;
 
+    #[ORM\OneToMany(mappedBy: 'campus', targetEntity: Promotion::class, orphanRemoval: true)]
+    private Collection $promotions;
+
     public function __construct()
     {
         $this->formateurs = new ArrayCollection();
         $this->salles = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->promotions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -185,6 +189,36 @@ class Campus
     public function setHeureMax(?\DateTimeInterface $heureMax): self
     {
         $this->heureMax = $heureMax;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Promotion>
+     */
+    public function getPromotions(): Collection
+    {
+        return $this->promotions;
+    }
+
+    public function addPromotion(Promotion $promotion): self
+    {
+        if (!$this->promotions->contains($promotion)) {
+            $this->promotions->add($promotion);
+            $promotion->setCampus($this);
+        }
+
+        return $this;
+    }
+
+    public function removePromotion(Promotion $promotion): self
+    {
+        if ($this->promotions->removeElement($promotion)) {
+            // set the owning side to null (unless already changed)
+            if ($promotion->getCampus() === $this) {
+                $promotion->setCampus(null);
+            }
+        }
 
         return $this;
     }
