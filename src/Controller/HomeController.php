@@ -32,13 +32,16 @@ class HomeController extends AbstractController
             //         'end' => $creneau->getDateFin()->format('Y-m-d H:i:s'),
             //     ];
             // }
+            return $this->render('pages/planning.html.twig', [
+                'controller_name' => 'HomeController',
+                'events' => $eventsFiltered,
+            ]);
         }
 
 
         return $this->render('pages/planning.html.twig', [
             'controller_name' => 'HomeController',
-            'events' => $eventsFiltered,
-
+            'events' => [],
         ]);
     }
 
@@ -66,7 +69,7 @@ class HomeController extends AbstractController
             $dateDebut = $creneau->getDateDebut();
             $dateFin = $creneau->getDateFin();
 
-           
+
             $dateIntermediaire = clone $dateDebut;
 
             while ($dateIntermediaire <= $dateFin) {
