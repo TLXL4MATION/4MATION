@@ -35,14 +35,25 @@ class HomeController extends AbstractController
 
             $eventsFiltered = $this->filterWeekendCreneaux($events);
 
-            
-
+            // $events = [];
+            // foreach ($formateur->getCreneaux() as $creneau) {
+            //     $events[] = [
+            //         'id' => $creneau->getId(),
+            //         'title' => $creneau->getCommentaire(),
+            //         'start' => $creneau->getDateDebut()->format('Y-m-d H:i:s'),
+            //         'end' => $creneau->getDateFin()->format('Y-m-d H:i:s'),
+            //     ];
+            // }
+            return $this->render('pages/planning.html.twig', [
+                'controller_name' => 'HomeController',
+                'events' => $eventsFiltered,
+            ]);
         }
 
 
         return $this->render('pages/planning.html.twig', [
             'controller_name' => 'HomeController',
-            'events' => $eventsFiltered,
+            'events' => [],
         ]);
     }
 
