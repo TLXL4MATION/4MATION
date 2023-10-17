@@ -7,13 +7,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\CreneauRepository;
 
 class HomeController extends AbstractController
 {
+
+    private $creneauRepository;
+
+    public function __construct(CreneauRepository $creneauRepository)
+    {
+        $this->creneauRepository = $creneauRepository;
+    }
+
+
     #[Route('/', name: 'app_home')]
     public function index(Security $security): Response
     {
+
         $events = [];
+        $eventsFiltered = [];
         $user = $this->getUser();
         // Vérifiez si l'utilisateur a le rôle "Formateur"
         if ($user && in_array(RolesEnum::Formateur, $user->getRoles(), true)) {
@@ -23,22 +35,14 @@ class HomeController extends AbstractController
 
             $eventsFiltered = $this->filterWeekendCreneaux($events);
 
-            // $events = [];
-            // foreach ($formateur->getCreneaux() as $creneau) {
-            //     $events[] = [
-            //         'id' => $creneau->getId(),
-            //         'title' => $creneau->getCommentaire(),
-            //         'start' => $creneau->getDateDebut()->format('Y-m-d H:i:s'),
-            //         'end' => $creneau->getDateFin()->format('Y-m-d H:i:s'),
-            //     ];
-            // }
+            
+
         }
 
 
         return $this->render('pages/planning.html.twig', [
             'controller_name' => 'HomeController',
             'events' => $eventsFiltered,
-
         ]);
     }
 
@@ -66,7 +70,7 @@ class HomeController extends AbstractController
             $dateDebut = $creneau->getDateDebut();
             $dateFin = $creneau->getDateFin();
 
-           
+
             $dateIntermediaire = clone $dateDebut;
 
             while ($dateIntermediaire <= $dateFin) {
@@ -112,8 +116,23 @@ class HomeController extends AbstractController
     #[Route('/demandes', name: 'app_demandes')]
     public function demandes(): Response
     {
+        $demandes = [];
+        $user = $this->getUser();
+        // Vérifiez si l'utilisateur a le rôle "Formateur"
+        if ($user && in_array(RolesEnum::Formateur, $user->getRoles(), true)) {
+            $formateur = $user->getFormateur();
+            $demandes = $this->creneauRepository->findDemandesByFormateur($formateur);
+        }
+       
+
+        // usort($demandes, function ($a, $b) {
+        //     return $b['dateHeure'] <=> $a['dateHeure'];
+        // });
+
+
         return $this->render('pages/demandes.html.twig', [
             'controller_name' => 'HomeController',
+            'demandes' => $demandes,
         ]);
     }
 }

@@ -17,17 +17,9 @@
     <div class="form-signin text-center">
 
         {{ form_start(requestForm) }}
-        <img class="mb-4 rounded" src="{{ asset('img/logo4mation.png') }}" alt="" width="80%">
-        <h1 class="h3 mb-3 fw-normal">Réinitialiser le mot de passe</h1>
-        <p>Entrer votre email, s'il existe, vous recevrez un mail pour changer votre mot de passe</p>
-
-        {% for flash_error in app.flashes('reset_password_error') %}
-            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-        {% endfor %}
-
-        {% if successMessage %}
-            <div class="alert alert-success" role="alert">{{ successMessage }}</div>
-        {% endif %}
+        <img class="rounded" src="{{ asset('img/logo/logo_4mation_purple_wo_bg.png') }}" alt="" width="70%">
+        <h1 class="h3 mb-3 fw-normal">Réinitialisation du mot de passe</h1>
+       
         <div class="form-floating pb-4">
             <input type="email" class="form-control {% if form_errors(requestForm.email) %}is-invalid{% endif %}"
                    id="floatingInput" placeholder="name@example.com"
@@ -40,8 +32,15 @@
                 </div>
             {% endif %}
         </div>
+          {% for flash_error in app.flashes('reset_password_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
 
-        <button class="w-100 btn btn-lg btn-primary bg-primaire" type="submit">Envoyer</button>
+        {% if successMessage %}
+            <div class="alert alert-success" role="alert">{{ successMessage }}</div>
+        {% endif %}
+
+        <button class="w-100 btn btn-lg btn-primary bg-primaire" type="submit">Demander la réinitialisation</button>
         <p class="mt-5 mb-3 text-muted">© TLXL - 4MAt!on - {{ currentYearString }}</p>
         {{ form_end(requestForm) }}
 

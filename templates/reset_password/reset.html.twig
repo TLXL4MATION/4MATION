@@ -1,12 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% set currentYear = date('Y') %}
+{% set currentYearString = currentYear|date('Y') %}
+
+{% block title %}Réinitialisation du mot de passe
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/register.css') }}">
+{% endblock %}
+
 
 {% block body %}
-    <h1>Reset your password</h1>
 
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}
+	<div class="form-signin text-center">
+		{{ form_start(resetForm) }}
+		<img class="rounded" src="{{ asset('img/logo/logo_4mation_purple_wo_bg.png') }}" alt="" width="70%">
+		<h1 class="h3 mb-3 fw-normal">Choisir un nouveau mot de passe</h1>
+
+		<div class="form-floating">
+		<input type="password" class="form-control {% if form_errors(resetForm.plainPassword.first) %}is-invalid{% endif %}" id="floatingInput" placeholder="name@example.com"
+               name="{{ field_name(resetForm.plainPassword.first) }}"
+               value="{{ field_value(resetForm.plainPassword.first) }}">
+			<label for="floatingInput">{{ field_label(resetForm.plainPassword.first) }}</label>
+			
+		</div>
+
+        <div class="form-floating">
+		<input type="password" class="form-control {% if form_errors(resetForm.plainPassword.second) %}is-invalid{% endif %}" id="floatingInput" placeholder="name@example.com"
+               name="{{ field_name(resetForm.plainPassword.second) }}"
+               value="{{ field_value(resetForm.plainPassword.second) }}">
+			<label for="floatingInput">{{ field_label(resetForm.plainPassword.second) }}</label>
+			
+		</div>
+        {% if form_errors(resetForm.plainPassword.first) %}
+				<div class="form-text text-danger">
+					{{ form_errors(resetForm.plainPassword.first) }}
+				</div>
+			{% endif %}
+
+
+
+		<button class="w-100 btn btn-lg btn-primary bg-primaire" type="submit">Changer le mot de passe</button>
+		<p class="mt-5 mb-3 text-muted">© TLXL - 4MAt!on -
+			{{ currentYearString }}</p>
+		{{ form_end(resetForm) }}
+	</div>
+
 {% endblock %}

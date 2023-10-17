@@ -44,7 +44,7 @@ class ResetPasswordController extends AbstractController
         $form = $this->createForm(ResetPasswordRequestFormType::class);
         $form->handleRequest($request);
         if ($request->get("isSended")) {
-            $successMessage = "Si cet email éxiste, il à été envoyer";
+            $successMessage = "Si cette adresse email existe, un email a été envoyé.";
         } else {
             $successMessage = null;
         }

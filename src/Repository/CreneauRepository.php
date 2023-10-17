@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Creneau;
 use App\Entity\Formateur;
+use App\Entity\ModuleFormation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -48,6 +49,30 @@ class CreneauRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findDemandesByFormateur(Formateur $formateur)
+    {
+        return $this->createQueryBuilder('c')
+        ->select('c.id', 'c.dateDebut', 'c.dateFin', 'mf.nom as module', 'c.commentaire')
+        ->join('c.moduleFormation', 'mf')
+        ->where(':formateur = c.formateur AND c.envoye = :envoye')
+        ->setParameter('formateur', $formateur)
+        ->setParameter('envoye', true)
+        ->getQuery()
+        ->getResult();
+    }
+
+    public function setEnvoyeById(int $creneauId, bool $accepte)
+{
+    $creneau = $this->find($creneauId);
+
+    if ($creneau) {
+        $creneau->setEnvoye(false);
+        $creneau->setAccepte($accepte);
+        $this->_em->persist($creneau);
+        $this->_em->flush();
+    }
+}
 
 //    /**
 //     * @return Creneau[] Returns an array of Creneau objects

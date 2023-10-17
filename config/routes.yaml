@@ -3,3 +3,12 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+accepter_demande:
+    path: '/accepter-demande/{id}'
+    controller: 'App\Controller\DemandeController::accepterDemande'
+    methods: ['POST']
+
+refuser_demande:
+    path: '/refuser-demande/{id}'
+    controller: 'App\Controller\DemandeController::refuserDemande'
+    methods: ['POST']
