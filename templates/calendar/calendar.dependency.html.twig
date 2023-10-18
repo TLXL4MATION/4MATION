@@ -5,34 +5,98 @@
 	 <script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
 	 <script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
 	 <script type="text/javascript">
-		        document.addEventListener('DOMContentLoaded', () => {
-		            var calendarEl = document.getElementById('calendar-holder');
-		            var events = {{ events|json_encode|raw }};
-		              var calendar = new FullCalendar.Calendar(calendarEl, {
-		                                events: events,
-		                                timeZone: 'UTC',
-		                                themeSystem: 'bootstrap5',
-		                                locale: 'fr',
-		                                headerToolbar: {
-		                                left: 'prev,next today',
-		                                center: 'title',
-		                                right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-		                                },
-		                                weekText:"S",
-		                                buttonText: {
-		                                    today: 'Aujourd\'hui',
-		                                    day: 'Jour',
-		                                    week:'Semaine',
-		                                    month:'Mois',
-		                                    list:"Liste"
-		                                    },
-		                                weekNumbers: true,
-		                                dayMaxEvents: true, // allow "more" link when too many events                      
-		  });
-		
-		         
-		            calendar.setOption('locale', 'fr')
-		            calendar.render();
-		        });
-		    </script>
+	
+			 function formatDateAndTime(date) {
+			    const day = date.getDate();
+			    const month = date.getMonth() + 1;
+			    const year = date.getFullYear();
+			    const hours = date.getHours();
+			    const minutes = date.getMinutes();
+			
+			    const formattedDate = `${day}/${month}/${year}`;
+			    const formattedTime = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+			
+			    return `${formattedDate} - ${formattedTime}`;
+			}
+			
+								        document.addEventListener('DOMContentLoaded', () => {
+								            var calendarEl = document.getElementById('calendar-holder');
+								            var events = {{ events|json_encode|raw }};
+								              var calendar = new FullCalendar.Calendar(calendarEl, {
+								                                events: events,
+																eventClick: function(info) {
+			
+																console.log(info.event);
+																var parentElement = info.el;
+																
+																// Réinitialisez la classe de surbrillance pour tous les éléments .fc-daygrid-day-events
+																document.querySelectorAll('.fc-event').forEach(function(element) {
+																	element.classList.remove('event-highlighted');
+																});
+			
+																if (parentElement && parentElement.classList.contains("fc-list-event")) {
+																	parentElement.classList.add('event-highlighted');
+																}
+			
+																var parentElement = info.el.closest('.fc-daygrid-event-harness');
+																
+																// Réinitialisez la classe de surbrillance pour tous les éléments .fc-daygrid-day-events
+																document.querySelectorAll('.fc-daygrid-event-harness').forEach(function(element) {
+																	element.classList.remove('event-highlighted');
+																});
+			
+																if (parentElement) {
+																	parentElement.classList.add('event-highlighted');
+																}
+			
+																// Sélectionnez l'élément parent fc-daygrid-day-events
+																var parentElement = info.el.closest('.fc-timegrid-event-harness');
+																
+																// Réinitialisez la classe de surbrillance pour tous les éléments .fc-daygrid-day-events
+																document.querySelectorAll('.fc-timegrid-event-harness').forEach(function(element) {
+																	element.classList.remove('event-highlighted');
+																});
+																
+																// Appliquez la classe de surbrillance à l'élément parent
+																if (parentElement) {
+																	parentElement.classList.add('event-highlighted');
+																}
+																
+																// Reste du code pour afficher les détails de l'événement
+																document.getElementById('event-start').textContent = formatDateAndTime(new Date(info.event.extendedProps.debut));
+															    document.getElementById('event-title').textContent = info.event.title;
+																document.getElementById('event-end').textContent = formatDateAndTime(new Date(info.event.extendedProps.fin));
+																document.getElementById('event-salle').textContent = info.event.extendedProps.salle;
+																document.getElementById('event-campus').textContent = info.event.extendedProps.campus;
+																document.getElementById('event-address').textContent = info.event.extendedProps.address;
+																document.getElementById('event-promoGroup').textContent = info.event.extendedProps.promoGroup;
+			
+																	
+																   
+																	},
+								                                timeZone: 'UTC',
+								                                themeSystem: 'bootstrap5',
+								                                locale: 'fr',
+								                                headerToolbar: {
+								                                left: 'prev,next today',
+								                                center: 'title',
+								                                right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+								                                },
+								                                weekText:"S",
+								                                buttonText: {
+								                                    today: 'Aujourd\'hui',
+								                                    day: 'Jour',
+								                                    week:'Semaine',
+								                                    month:'Mois',
+								                                    list:"Liste"
+								                                    },
+								                                weekNumbers: true,
+								                                dayMaxEvents: true, // allow "more" link when too many events                      
+								  });
+								
+								         
+								            calendar.setOption('locale', 'fr')
+								            calendar.render();
+								        });
+								    </script>
 {% endblock %}

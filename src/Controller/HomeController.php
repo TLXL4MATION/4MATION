@@ -31,22 +31,22 @@ class HomeController extends AbstractController
         if ($user && in_array(RolesEnum::Formateur, $user->getRoles(), true)) {
             $formateur = $user->getFormateur();
 
-            $events =  $this->getAllEvent($formateur->getCreneaux());
+          
+
+            // Filtrer les événements
+            $creneauxFiltres = array_filter($formateur->getCreneaux()->toArray(), function ($creneau) {
+                return !$creneau->isEnvoye() && $creneau->isAccepte();
+            });
+
+            $events =  $this->getAllEvent($creneauxFiltres);
 
             $eventsFiltered = $this->filterWeekendCreneaux($events);
 
-            // $events = [];
-            // foreach ($formateur->getCreneaux() as $creneau) {
-            //     $events[] = [
-            //         'id' => $creneau->getId(),
-            //         'title' => $creneau->getCommentaire(),
-            //         'start' => $creneau->getDateDebut()->format('Y-m-d H:i:s'),
-            //         'end' => $creneau->getDateFin()->format('Y-m-d H:i:s'),
-            //     ];
-            // }
+
             return $this->render('pages/planning.html.twig', [
                 'controller_name' => 'HomeController',
                 'events' => $eventsFiltered,
+                'title' => 'Planning'
             ]);
         }
 
@@ -54,6 +54,7 @@ class HomeController extends AbstractController
         return $this->render('pages/planning.html.twig', [
             'controller_name' => 'HomeController',
             'events' => [],
+            'title' => 'Planning'
         ]);
     }
 
@@ -72,6 +73,7 @@ class HomeController extends AbstractController
     }
     private function getAllEvent($creneaux)
     {
+
         $events = [];
 
         foreach ($creneaux as $creneau) {
@@ -89,12 +91,19 @@ class HomeController extends AbstractController
                     'id' => $creneau->getId(),
                     'title' => $creneau->getModuleFormation()->getNom(),
                     'start' => $dateIntermediaire->format('Y-m-d') . ' ' . ($dateIntermediaire == $dateDebut ? $dateDebut->format('H:i:s') : $heureMin->format('H:i:s')),
+                    'salle' => "Salle 202",
+                    'campus' => "ENI Nantes",
+                    'address' => "15 rue des prés",
+                    'promoGroup' =>  $creneau->getGroupePromotion()->getNom(),
+                    'debut' => $dateIntermediaire->format('Y-m-d') . ' ' . ($dateIntermediaire == $dateDebut ? $dateDebut->format('H:i:s') : $heureMin->format('H:i:s')),
                 ];
 
                 if ($dateIntermediaire->format('Y-m-d') == $dateFin->format('Y-m-d')) {
                     $event['end'] = $dateFin->format('Y-m-d') . ' ' . $dateFin->format('H:i:s');
+                    $event['fin'] = $dateFin->format('Y-m-d') . ' ' . $dateFin->format('H:i:s');
                 } else {
                     $event['end'] = $dateIntermediaire->format('Y-m-d') . ' ' . $heureMax->format('H:i:s');
+                    $event['fin'] = $dateIntermediaire->format('Y-m-d') . ' ' . $heureMax->format('H:i:s');
                 }
 
                 $events[] = $event;
@@ -120,6 +129,7 @@ class HomeController extends AbstractController
     {
         return $this->render('pages/formations.html.twig', [
             'controller_name' => 'HomeController',
+            'title' => 'Mes formations'
         ]);
     }
 
@@ -134,7 +144,7 @@ class HomeController extends AbstractController
             $formateur = $user->getFormateur();
             $demandes = $this->creneauRepository->findDemandesByFormateur($formateur);
         }
-       
+
 
         // usort($demandes, function ($a, $b) {
         //     return $b['dateHeure'] <=> $a['dateHeure'];
@@ -144,6 +154,7 @@ class HomeController extends AbstractController
         return $this->render('pages/demandes.html.twig', [
             'controller_name' => 'HomeController',
             'demandes' => $demandes,
+            'title' => 'Demandes de cours'
         ]);
     }
 }

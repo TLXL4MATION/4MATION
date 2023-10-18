@@ -37,6 +37,15 @@ A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony
 7. [Using a Makefile](docs/makefile.md)
 8. [Troubleshooting](docs/troubleshooting.md)
 
+## Commands
+
+1. Create admin
+
+```sh
+bin/console app:create-admin-user email password
+```
+
+
 ## License
 
 Symfony Docker is available under the MIT License.
@@ -44,3 +53,7 @@ Symfony Docker is available under the MIT License.
 ## Credits
 
 Created by [Kévin Dunglas](https://dunglas.fr), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
+
+
+
+

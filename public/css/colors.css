@@ -1,13 +1,15 @@
 
 .bg-primaire{
-  background-color: #553CA3 !important;
-  border: 1px solid #553CA3 !important
+  background-color: rgb(248, 250, 252) !important;
+  
 }
 
 .fc-button-primary {
-  background-color: #553CA3 !important;
-  border: 1px solid #553CA3 !important;
+  background-color: rgb(226, 232, 240)!important;
+  color:rgb(51, 65, 85)!important;
   box-shadow: none !important;
+  border : none !important;
+  margin: 2px !important;
 }
 
 .fc-button-primary:hover {
@@ -15,36 +17,37 @@
 }
 
 .fc-list-day-text, .fc-list-day-side-text{
-  color: #9EBC36 !important;
+  color: #5368d5 !important;
   text-decoration: none;
   font-weight: bold;
   text-transform: uppercase;
 }
 
 .fc-event-title-container, .fc-event-time, .fc-event{
-  background-color: #9EBC36!important;
-  border-color: #9EBC36!important;
+  background-color:rgb(83, 104, 213)!important;
+  border-color: rgb(83, 104, 213)!important;
 }
 
-.fc-event-main:hover *  {
-  background-color: #553CA3 !important; /* Changer la couleur de fond en rouge pour tous les enfants de .fc-event-main-frame lorsque .fc-event-main est survolé */
-  border-color: #553CA3 !important;
-}
 
-.fc .fc-list-event:hover td{
-  background-color: #553CA3 !important;
+
+.fc .fc-list-event td{
+  background-color: rgb(83, 104, 213)!important;
   color: white;
 }
 .fc-button-active,
 .fc-daygrid-day-number{
-  color: #9EBC36 !important;
+  color: rgb(83, 104, 213)!important;
   box-shadow: none !important;
 
 
 }
 
+.fc-list-event-dot{
+  border-color:rgb(51, 65, 85)!important;
+}
+
 .fc-toolbar-title{
-  color: #553ca3 !important;
+  color: rgb(83, 104, 213)!important;
   text-transform: uppercase;
 }
 
@@ -55,26 +58,26 @@ text-decoration: none;
 }
 
 .fc-day-today{
-  background-color: #563ca321!important
+  background-color: rgb(226, 232, 240)!important;
 }
 
 .fc-scrollgrid-sync-inner:has(.fc-col-header-cell-cushion), .fc-col-header-cell-cushion  {
   color:white !important;
-  background-color: #553ca3 !important;
+  background-color: rgb(83, 104, 213)!important;
   text-decoration: none;
 }
 
 .fc-daygrid-week-number{
   text-decoration: none !important;
-  color: #553CA3 !important;
+  color: rgb(83, 104, 213)!important;
 }
 
 .primaire{
-  color: #553CA3 !important;
+  color: rgb(83, 104, 213)!important;
 }
 
 .primaire{
-  color: #553CA3 !important;
+  color: rgb(83, 104, 213)!important;
 }
 
 .fc-event-title, .fc-event-time {
@@ -83,23 +86,68 @@ text-decoration: none;
  .fc-daygrid-event-dot{
   border-color: white;}
 
-.bg-primaire:hover{
-  background-color: black ;
-  border: 1px solid black;
-}
+
 
 .nav-link {
-  color: white!important;
+  color: rgb(51, 65, 85)!important;
 }
 
 .nav-link:hover, .fc-button-primary:hover {
-  color: #9EBC36!important;
+  color: rgb(83, 104, 213)!important;
 }
 
 .active {
-  color: #9EBC36!important;
+  color: rgb(83, 104, 213)!important;
+  background-color: rgb(226, 232, 240);
+  border-radius: 4px;
 }
 
+
+
+
+
 .navbar {
-  background-color: #553CA3 !important;}
+  background-color: rgb(248, 250, 252) !important;
+}
+
+.card {
+  width: 100%; /* Ajustez la largeur selon vos préférences */
+  min-height: 400px; /* Ajustez la hauteur selon vos besoins */
+  max-width: 1050px;
+}
+
+.card-creneau{
+  background-color: rgb(248, 250, 252);
+  margin-left: 10px;
+  box-shadow: inset 1px 0 0 rgba(0, 0, 0, .1)
+}
+
+.btn-purple{
+  background-color: #5368d5 !important;
+  color: white !important;
+}
+
+.event-highlighted * {
+  background-color: rgb(203, 206, 209)!important ;/* Choisissez la couleur de surbrillance de votre choix */
+  border-color: rgb(203, 206, 209)!important ;
+  color: rgb(97, 97, 97)!important;
+}
+
+.fc .fc-list-event tr .event-highlighted *{
+  background-color: rgb(203, 206, 209) !important ;/* Choisissez la couleur de surbrillance de votre choix */
+  border-color: rgb(203, 206, 209)!important ;
+  color: rgb(97, 97, 97)!important;
+
+}
+
+.event-highlighted .fc-event-title, .event-highlighted .fc-event-time {
+  color: rgb(97, 97, 97)!important;
+}
+
+
+.fc-event.fc-event-start.fc-event-end.fc-event-future.fc-list-event.event-highlighted * {
+  background-color: rgb(203, 206, 209) !important ;/* Choisissez la couleur de surbrillance de votre choix */
+  border-color: rgb(203, 206, 209)!important ;
+  color: rgb(97, 97, 97)!important; /* Choisissez la couleur du texte */
+}
 
