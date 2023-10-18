@@ -5,7 +5,8 @@ namespace App\Enum;
 class RolesEnum
 {
     const Admin = 'ROLE_ADMIN';
-    const Formateur = 'FORMATEUR';
-    const Plannificateur = 'PLANNIFICATEUR';
- 
+    const Formateur = 'ROLE_FORMATEUR';
+    const Plannificateur = 'ROLE_PLANNIFICATEUR';
+    const Invite = 'ROLE_INVITE';
+
 }
