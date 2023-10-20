@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Enum\RolesEnum;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\CreneauRepository;
@@ -22,8 +23,18 @@ class HomeController extends AbstractController
         $this->moduleFormationRepository = $moduleFormationRepository;
     }
 
+    #[Route('/', name: 'app_redirect_home')]
+    public function redirectHome(): Response
+    {
+        if ($this->getUser()) {
+            return new RedirectResponse($this->generateUrl('app_home'));
+        } else {
+            return new RedirectResponse($this->generateUrl('app_login'));
 
-    #[Route('/', name: 'app_home')]
+        }
+    }
+
+    #[Route('/home', name: 'app_home')]
     public function index(Security $security): Response
     {
 
@@ -34,7 +45,6 @@ class HomeController extends AbstractController
         if ($user && in_array(RolesEnum::Formateur, $user->getRoles(), true)) {
             $formateur = $user->getFormateur();
 
-          
 
             // Filtrer les événements
             $creneauxFiltres = array_filter($formateur->getCreneaux()->toArray(), function ($creneau) {
@@ -139,7 +149,6 @@ class HomeController extends AbstractController
         }
 
 
-       
         // usort($demandes, function ($a, $b) {
         //     return $b['dateHeure'] <=> $a['dateHeure'];
         // });
