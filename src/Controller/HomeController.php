@@ -23,18 +23,21 @@ class HomeController extends AbstractController
         $this->moduleFormationRepository = $moduleFormationRepository;
     }
 
-    #[Route('/', name: 'app_redirect_home')]
+    #[Route('/', name: 'app_home')]
     public function redirectHome(): Response
     {
-        if ($this->getUser()) {
-            return new RedirectResponse($this->generateUrl('app_home'));
+        if ($user = $this->getUser()) {
+            if (in_array(RolesEnum::Admin, $user->getRoles(), true)) {
+                return new RedirectResponse($this->generateUrl('admin'));
+            }
+            return new RedirectResponse($this->generateUrl('app_home_formateur'));
         } else {
             return new RedirectResponse($this->generateUrl('app_login'));
 
         }
     }
 
-    #[Route('/home', name: 'app_home')]
+    #[Route('/formateur', name: 'app_home_formateur')]
     public function index(Security $security): Response
     {
 
@@ -128,8 +131,7 @@ class HomeController extends AbstractController
     }
 
 
-
-    #[Route('/cours', name: 'app_cours')]
+    #[Route('/formateur/cours', name: 'app_cours')]
     public function cours(): Response
     {
         return $this->render('pages/cours.html.twig', [
@@ -137,7 +139,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/formations', name: 'app_formations')]
+    #[Route('/formateur/formations', name: 'app_formations')]
     public function formations(): Response
     {
         $formations = [];
@@ -162,7 +164,7 @@ class HomeController extends AbstractController
     }
 
 
-    #[Route('/demandes', name: 'app_demandes')]
+    #[Route('/formateur/demandes', name: 'app_demandes')]
     public function demandes(): Response
     {
         $demandes = [];
