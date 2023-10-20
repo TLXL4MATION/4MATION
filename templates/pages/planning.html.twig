@@ -1,6 +1,6 @@
 {% extends 'base/main_template.html.twig' %}
 
-
+{% block title %}{{title}}{% endblock %}
 {% block stylesheets %}
 	{{ parent() }}
 	{% include  'calendar/calendar.dependency.html.twig' %}
