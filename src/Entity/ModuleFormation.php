@@ -106,7 +106,12 @@ class ModuleFormation
 
     public function __toString(): string
     {
-       return $this->nom;
+        return $this->nom;
+    }
+
+    public function isFormateurAllowed(Formateur $formateur):bool
+    {
+        return in_array($formateur, $this->getFormateurs()->toArray());
     }
 
 

@@ -103,4 +103,14 @@ class Salle
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->numero . " - " . $this->campus->getNom();
+    }
+
+    public function isSameAsSecondary(Collection $getSallesSecondaires): bool
+    {
+        return in_array($this, $getSallesSecondaires->toArray());
+    }
 }

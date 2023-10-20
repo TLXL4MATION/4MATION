@@ -7,8 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Validator\Constraints\CreneauValidation;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+
 
 #[ORM\Entity(repositoryClass: CreneauRepository::class)]
+#[CreneauValidation]
 class Creneau
 {
     #[ORM\Id]
@@ -37,7 +42,7 @@ class Creneau
     #[ORM\ManyToMany(targetEntity: Salle::class, inversedBy: 'creneaux')]
     private Collection $sallesSecondaires;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $commentaire = null;
 
     #[ORM\Column(nullable: true)]
@@ -191,6 +196,62 @@ class Creneau
         $this->envoye = $envoye;
 
         return $this;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context, $payload): void
+    {
+        $errors = $this->getValidation();
+        if ($errors) {
+            foreach ($errors as $error) {
+                $context->buildViolation($error)
+                    ->atPath('contact')
+                    ->addViolation();
+            }
+        }
+
+    }
+
+    private function getValidation(): array
+    {
+        $errors = [];
+        if (!$this->getModuleFormation()->isFormateurAllowed($this->getFormateur())) {
+            $errors[] = "Ce formateur ne peux pas donner ce cours";
+        }
+        if ($this->getSallePrincipale()->isSameAsSecondary($this->getSallesSecondaires())) {
+            $errors[] = "La salle principale ne peut pas être la même qu'une secondaire";
+        }
+        if (!$this->foramteurIsFree()) {
+            $errors[] = "Le formateur a déjà une formation sur ce créneaux";
+        }
+        if (!$this->groupePromotionIsFree()) {
+            $errors[] = "La promotion a déjà une formation sur ce créneaux";
+        }
+        return $errors;
+    }
+
+    private function foramteurIsFree(): bool
+    {
+        $creneauExistant = $this->getFormateur()->getCreneaux();
+        foreach ($creneauExistant->toArray() as $creneau) {
+            if ($this->dateDebut < $creneau->getDateFin() && $this->dateFin > $creneau->getDateDebut()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private function groupePromotionIsFree(): bool
+    {
+        $creneauExistant = $this->getGroupePromotion()->getCreneaux();
+        foreach ($creneauExistant->toArray() as $creneau) {
+            if ($this->dateDebut < $creneau->getDateFin() && $this->dateFin > $creneau->getDateDebut()) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
