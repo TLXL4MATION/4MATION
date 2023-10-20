@@ -63,7 +63,7 @@ git clone git@github.com:<username>/<project-name>.git
 Go into the directory containing your project (`<project-name>`), and start the app in production mode:
 
 ```console
-SERVER_NAME=your-domain-name.example.com \
+SERVER_NAME=4mation.dlr-peugeot.fr \
 APP_SECRET=ChangeMe \
 CADDY_MERCURE_JWT_SECRET=ChangeThisMercureHubJWTSecretKey \
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
