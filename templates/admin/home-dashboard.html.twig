@@ -1,28 +1,73 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
 
-    {% block content_title %}Calendrier{% endblock %}
-    {% block page_actions %}
-        <a class="btn btn-primary" href="...">Some Action</a>
-    {% endblock %}
 
     {% block main %}
-        <table class="datagrid">
-            <div class="container" style="max-width: 600px">
-                <div class="card">
-                    <div id="calendar-holder"></div>
-                </div>
+        <style>
+            .icon-container .icon,
+            .icon-container  {
+                display: block;
+                font-size: xxx-large;
+            }
+            .text{
+                font-size: x-large;
+            }
+        </style>
+        <div class="row">
+            <div class="icon-container col-3 m-5">
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\AdresseCrudController').setAction('index') }}">
+                    <i class="fa-solid fa-location-dot icon text-center"></i>
+                    <div class="text text-center">Adresses</div>
+                </a>
             </div>
-        </table>
-        {#        <table class="datagrid">
-            <thead>
-            <tr>
-                <td>Some Column</td>
-                <td>Another Column</td>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table> #}
+            <div class="icon-container col-3 m-5">
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\CampusCrudController').setAction('index') }}">
+                    <i class="fa-solid fa-building-columns icon text-center"></i>
+                    <div class="text text-center">Campus</div>
+                </a>
+            </div>
+            <div class="icon-container col-3 m-5">
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\CreneauCrudController').setAction('index') }}">
+                    <i class="fa-solid fa-calendar-days icon text-center"></i>
+                    <div class="text text-center">Créneaux</div>
+                </a>
+            </div>
+            <div class="icon-container col-3 m-5">
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\FormateurCrudController').setAction('index') }}">
+                    <i class="fa-solid fa-user-group icon text-center"></i>
+                    <div class="text text-center">Formateurs</div>
+                </a>
+            </div>
+            <div class="icon-container col-3 m-5">
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\GroupePromotionCrudController').setAction('index') }}">
+                    <i class="fa-solid fa-people-group icon text-center"></i>
+                    <div class="text text-center">Groupes promotion</div>
+                </a>
+            </div>
+            <div class="icon-container col-3 m-5">
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\ModuleFormationCrudController').setAction('index') }}">
+                    <i class="fa-solid fa-sheet-plastic icon text-center"></i>
+                    <div class="text text-center">Modules de formation</div>
+                </a>
+            </div>
+            <div class="icon-container col-3 m-5">
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\PromotionCrudController').setAction('index') }}">
+                    <i class="fa-solid fa-globe icon text-center"></i>
+                    <div class="text text-center">Promotions</div>
+                </a>
+            </div>
+            <div class="icon-container col-3 m-5">
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\SalleCrudController').setAction('index') }}">
+                    <i class="fa-solid fa-house-laptop icon text-center"></i>
+                    <div class="text text-center">Salles</div>
+                </a>
+            </div>
+            <div class="icon-container col-3 m-5">
+                <a href="{{ ea_url().setController('App\\Controller\\Admin\\UserCrudController').setAction('index') }}">
+                    <i class="fa-solid fa-solid fa-user icon text-center"></i>
+                    <div class="text text-center">Utilisateurs</div>
+                </a>
+            </div>
+        </div>
     {% endblock %}
 
