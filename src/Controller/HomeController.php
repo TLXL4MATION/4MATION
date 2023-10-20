@@ -8,15 +8,18 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\CreneauRepository;
+use App\Repository\ModuleFormationRepository;
 
 class HomeController extends AbstractController
 {
 
     private $creneauRepository;
+    private $moduleFormationRepository;
 
-    public function __construct(CreneauRepository $creneauRepository)
+    public function __construct(CreneauRepository $creneauRepository, ModuleFormationRepository $moduleFormationRepository)
     {
         $this->creneauRepository = $creneauRepository;
+        $this->moduleFormationRepository = $moduleFormationRepository;
     }
 
 
@@ -127,8 +130,24 @@ class HomeController extends AbstractController
     #[Route('/formations', name: 'app_formations')]
     public function formations(): Response
     {
+        $formations = [];
+        $user = $this->getUser();
+        // Vérifiez si l'utilisateur a le rôle "Formateur"
+        if ($user && in_array(RolesEnum::Formateur, $user->getRoles(), true)) {
+            $formateur = $user->getFormateur();
+            $formations = $formateur->getFormationsPossibles();
+        }
+
+
+       
+        // usort($demandes, function ($a, $b) {
+        //     return $b['dateHeure'] <=> $a['dateHeure'];
+        // });
+
+
         return $this->render('pages/formations.html.twig', [
             'controller_name' => 'HomeController',
+            'formations' => $formations,
             'title' => 'Mes formations'
         ]);
     }

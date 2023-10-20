@@ -30,10 +30,10 @@
 
 
 
-.fc .fc-list-event td{
+/* .fc .fc-list-event td{
   background-color: rgb(83, 104, 213)!important;
   color: white;
-}
+} */
 .fc-button-active,
 .fc-daygrid-day-number{
   color: rgb(83, 104, 213)!important;
@@ -89,7 +89,7 @@ text-decoration: none;
 
 
 .nav-link {
-  color: rgb(51, 65, 85)!important;
+  color: #334155!important;
 }
 
 .nav-link:hover, .fc-button-primary:hover {
@@ -97,7 +97,7 @@ text-decoration: none;
 }
 
 .active {
-  color: rgb(83, 104, 213)!important;
+  color: #5368d5!important;
   background-color: rgb(226, 232, 240);
   border-radius: 4px;
 }
@@ -149,5 +149,16 @@ text-decoration: none;
   background-color: rgb(203, 206, 209) !important ;/* Choisissez la couleur de surbrillance de votre choix */
   border-color: rgb(203, 206, 209)!important ;
   color: rgb(97, 97, 97)!important; /* Choisissez la couleur du texte */
+}
+
+
+.fc-event-title-container .event-highlighted, .fc-event-time .event-highlighted, .fc-event .event-highlighted{
+  background-color:rgb(203, 206, 209)!important;
+  border-color: rgb(203, 206, 209)!important;
+}
+
+.table-4mation {
+  color: #5368d5;
+   
 }
 

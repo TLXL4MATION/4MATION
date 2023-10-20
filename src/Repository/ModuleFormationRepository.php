@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ModuleFormation;
+use App\Entity\Formateur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -52,6 +53,16 @@ class ModuleFormationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function findFormationsByFormateur(Formateur $formateur)
+    {
+        return $this->createQueryBuilder('c')
+        ->select('c.id', 'c.nom')
+        ->where(':formateur = c.formateur')
+        ->setParameter('formateur', $formateur)
+        ->getQuery()
+        ->getResult();
     }
 
 //    public function findOneBySomeField($value): ?ModuleFormation
