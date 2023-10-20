@@ -36,7 +36,7 @@ class CreneauCrudController extends AbstractCrudController
             AssociationField::new('formateur'),
             AssociationField::new('moduleFormation'),
             AssociationField::new('groupePromotion'),
-            TextareaField::new("commentaire")->setLabel("Modalitées / Commentaire"),
+            TextareaField::new("commentaire")->setLabel("Modalités / Commentaire"),
             BooleanField::new("accepte"),
             BooleanField::new("envoye"),
         ];
