@@ -51,7 +51,7 @@ class AdminController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Adresses', 'fa-solid fa-location-dot', Adresse::class);
+        //yield MenuItem::linkToCrud('Adresses', 'fa-solid fa-location-dot', Adresse::class);
         yield MenuItem::linkToCrud('Campus', 'fa-solid fa-building-columns', Campus::class);
         yield MenuItem::linkToCrud('Créneaux', 'fa-solid fa-calendar-days', Creneau::class);
         yield MenuItem::linkToCrud('Formateurs', 'fa-solid fa-user-group', Formateur::class);
