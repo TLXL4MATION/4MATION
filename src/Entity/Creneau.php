@@ -218,16 +218,16 @@ class Creneau
     {
         $errors = [];
         if (!$this->getModuleFormation()->isFormateurAllowed($this->getFormateur())) {
-            $errors[] = "Ce formateur ne peux pas donner ce cours";
+            $errors[] = "Ce formateur ne peut pas donner ce cours";
         }
         if ($this->getSallePrincipale()->isSameAsSecondary($this->getSallesSecondaires())) {
             $errors[] = "La salle principale ne peut pas être la même qu'une secondaire";
         }
         if (!$this->foramteurIsFree()) {
-            $errors[] = "Le formateur a déjà une formation sur ce créneaux";
+            $errors[] = "Le formateur a déjà une formation sur ce créneau horaire";
         }
         if (!$this->groupePromotionIsFree()) {
-            $errors[] = "La promotion a déjà une formation sur ce créneaux";
+            $errors[] = "Le groupe promotion a déjà une formation sur ce créneau horaire";
         }
         return $errors;
     }
