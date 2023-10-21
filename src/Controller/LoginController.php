@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Enum\RolesEnum;
 use App\Form\LoginFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +27,10 @@ class LoginController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            return $this->redirectToRoute('app_home');
+            if (in_array(RolesEnum::Admin, $user->getRoles(), true) || in_array(RolesEnum::Plannificateur, $user->getRoles(), true)) {
+                return new RedirectResponse($this->generateUrl('admin'));
+            }
+            return new RedirectResponse($this->generateUrl('app_home_formateur'));
         }
         return $this->render('login/login.html.twig', [
             'loginForm' => $form->createView(),

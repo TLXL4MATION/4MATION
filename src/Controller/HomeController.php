@@ -32,7 +32,6 @@ class HomeController extends AbstractController
             }
         } else {
             return new RedirectResponse($this->generateUrl('app_home_formateur'));
-
         }
     }
 
