@@ -33,7 +33,7 @@ class HomeController extends AbstractController
                 return new RedirectResponse($this->generateUrl('app_home_formateur'));
             }
         } else {
-            return new RedirectResponse($this->generateUrl('login'));
+            return new RedirectResponse($this->generateUrl('app_login'));
         }
     }
 
