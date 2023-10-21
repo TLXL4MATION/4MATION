@@ -146,11 +146,6 @@ class ResetPasswordController extends AbstractController
             'email' => $emailFormData,
         ]);
 
-        // Do not reveal whether a user account was found or not.
-        if (!$user) {
-            return $this->redirectToRoute('app_check_email');
-        }
-
 
         try {
             $resetToken = $this->resetPasswordHelper->generateResetToken($user);
@@ -165,7 +160,7 @@ class ResetPasswordController extends AbstractController
                 $translator->trans($e->getReason(), [], 'ResetPasswordBundle')
             ));
 
-            return $this->redirectToRoute('app_forgot_password_request');
+            return $this->redirectToRoute('app_forgot_password_request', array('isSended' => true));
         }
 
         $email = (new TemplatedEmail())
