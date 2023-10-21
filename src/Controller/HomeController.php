@@ -27,15 +27,13 @@ class HomeController extends AbstractController
     public function redirectHome(): Response
     {
         if ($user = $this->getUser()) {
-            if (in_array(RolesEnum::Admin, $user->getRoles(), true)) {
+            if (in_array(RolesEnum::Admin, $user->getRoles(), true) || in_array(RolesEnum::Plannificateur, $user->getRoles(), true)) {
                 return new RedirectResponse($this->generateUrl('admin'));
-            } elseif (in_array(RolesEnum::Plannificateur, $user->getRoles(), true)) {
-                return new RedirectResponse($this->generateUrl('admin'));
-            } elseif (in_array(RolesEnum::Formateur, $user->getRoles(), true)) {
-                return new RedirectResponse($this->generateUrl('app_home_formateur'));
             }
+        } else {
+            return new RedirectResponse($this->generateUrl('app_home_formateur'));
+
         }
-            return new RedirectResponse($this->generateUrl('app_login'));
     }
 
     #[Route('/formateur', name: 'app_home_formateur')]

@@ -13,7 +13,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends AbstractController
 {
     #[Route('/login', name: 'app_login')]
-    public function index(AuthenticationUtils $authenticationUtils, Request $request,): Response
+    public function index(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
 
@@ -27,12 +27,11 @@ class LoginController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             return $this->redirectToRoute('app_home');
         }
-            return $this->render('login/login.html.twig', [
-                'loginForm' => $form->createView(),
-                'last_username' => $lastUsername,
-                'error' => $error,
-                'target_path' => $this->generateUrl('admin'),
-            ]);
-        // }
+        return $this->render('login/login.html.twig', [
+            'loginForm' => $form->createView(),
+            'last_username' => $lastUsername,
+            'error' => $error,
+            'target_path' => $this->generateUrl('admin'),
+        ]);
     }
 }
