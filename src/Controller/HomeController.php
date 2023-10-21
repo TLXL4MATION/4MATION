@@ -29,9 +29,11 @@ class HomeController extends AbstractController
         if ($user = $this->getUser()) {
             if (in_array(RolesEnum::Admin, $user->getRoles(), true) || in_array(RolesEnum::Plannificateur, $user->getRoles(), true)) {
                 return new RedirectResponse($this->generateUrl('admin'));
+            } else {
+                return new RedirectResponse($this->generateUrl('app_home_formateur'));
             }
         } else {
-            return new RedirectResponse($this->generateUrl('app_home_formateur'));
+            return new RedirectResponse($this->generateUrl('login'));
         }
     }
 

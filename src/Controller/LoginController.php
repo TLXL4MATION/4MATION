@@ -27,10 +27,7 @@ class LoginController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (in_array(RolesEnum::Admin, $user->getRoles(), true) || in_array(RolesEnum::Plannificateur, $user->getRoles(), true)) {
-                return new RedirectResponse($this->generateUrl('admin'));
-            }
-            return new RedirectResponse($this->generateUrl('app_home_formateur'));
+            return new RedirectResponse($this->generateUrl('app_home'));
         }
         return $this->render('login/login.html.twig', [
             'loginForm' => $form->createView(),
