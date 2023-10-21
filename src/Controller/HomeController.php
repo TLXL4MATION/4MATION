@@ -36,7 +36,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/formateur', name: 'app_home_formateur')]
-    public function index(Security $security): Response
+    public function index(): Response
     {
 
         $events = [];
