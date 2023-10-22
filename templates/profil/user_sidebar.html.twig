@@ -11,7 +11,7 @@
             <div class="mb-3">
                 <strong>Rôle:</strong> {{ app.user.roles[0] }}
             </div>
-            <a class="nav-link px-3 btn bg-primaire" href="{{ path('app_logout') }}">Se déconnecter</a>
+            <a class="nav-link px-3 btn bg-primaire btn-purple" href="{{ path('app_logout') }}">Se déconnecter</a>
         {% else %}
             <p>Connectez-vous pour voir les informations</p>
         {% endif %}
