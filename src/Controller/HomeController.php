@@ -103,14 +103,20 @@ class HomeController extends AbstractController
             $dateIntermediaire = clone $dateDebut;
 
             while ($dateIntermediaire <= $dateFin) {
+
+                $numero = $creneau->getSallePrincipale()->getCampus()->getAdresse()->getNumero();
+                $rue = $creneau->getSallePrincipale()->getCampus()->getAdresse()->getRue();
+                $codePostal = $creneau->getSallePrincipale()->getCampus()->getAdresse()->getCodePostal();
+                $ville = $creneau->getSallePrincipale()->getCampus()->getAdresse()->getVille();
+
                 $event = [
                     'id' => $creneau->getId(),
                     'title' => $creneau->getModuleFormation()->getNom(),
                     'start' => $dateIntermediaire->format('Y-m-d') . ' ' . ($dateIntermediaire == $dateDebut ? $dateDebut->format('H:i:s') : $heureMin->format('H:i:s')),
-                    'salle' => "Salle 202",
-                    'campus' => "ENI Nantes",
-                    'address' => "15 rue des prés",
-                    'promoGroup' =>  $creneau->getGroupePromotion()->getNom(),
+                    'salle' => $creneau->getSallePrincipale()->getNumero(),
+                    'campus' => $creneau->getSallePrincipale()->getCampus()->getNom() ,
+                    'address' => $numero . " " . $rue . ", " . $codePostal . " " . $ville,
+                    'promoGroup' =>  $creneau->getGroupePromotion()->getNom(). ' - '.   $creneau->getGroupePromotion()->getPromotion()->getNom() ,
                     'debut' => $dateIntermediaire->format('Y-m-d') . ' ' . ($dateIntermediaire == $dateDebut ? $dateDebut->format('H:i:s') : $heureMin->format('H:i:s')),
                 ];
 

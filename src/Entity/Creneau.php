@@ -223,7 +223,7 @@ class Creneau
         if ($this->getSallePrincipale()->isSameAsSecondary($this->getSallesSecondaires())) {
             $errors[] = "La salle principale ne peut pas être la même qu'une secondaire";
         }
-        if (!$this->foramteurIsFree()) {
+        if (!$this->formateurIsFree()) {
             $errors[] = "Le formateur a déjà une formation sur ce créneau horaire";
         }
         if (!$this->groupePromotionIsFree()) {
@@ -232,11 +232,11 @@ class Creneau
         return $errors;
     }
 
-    private function foramteurIsFree(): bool
+    private function formateurIsFree(): bool
     {
         $creneauExistant = $this->getFormateur()->getCreneaux();
         foreach ($creneauExistant->toArray() as $creneau) {
-            if ($this->dateDebut < $creneau->getDateFin() && $this->dateFin > $creneau->getDateDebut()) {
+            if ($this->dateDebut < $creneau->getDateFin() && $this->dateFin > $creneau->getDateDebut() && $creneau->getId() != $this->getId()) {
                 return false;
             }
         }
@@ -247,7 +247,7 @@ class Creneau
     {
         $creneauExistant = $this->getGroupePromotion()->getCreneaux();
         foreach ($creneauExistant->toArray() as $creneau) {
-            if ($this->dateDebut < $creneau->getDateFin() && $this->dateFin > $creneau->getDateDebut()) {
+            if ($this->dateDebut < $creneau->getDateFin() && $this->dateFin > $creneau->getDateDebut() && $creneau->getId() != $this->getId()) {
                 return false;
             }
         }
