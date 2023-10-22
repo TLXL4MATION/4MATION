@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Enum\RolesEnum;
 use App\Form\LoginFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;

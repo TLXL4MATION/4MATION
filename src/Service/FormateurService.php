@@ -39,6 +39,7 @@ class FormateurService
 
         $user->setRoles([RolesEnum::Formateur]);
         $formateur->setUtilisateur($user);
+        $formateur->setActif(true);
 
         return $formateur;
     }
