@@ -21,7 +21,7 @@ class ModuleFormation
     #[ORM\ManyToMany(targetEntity: Formateur::class, mappedBy: 'formationsPossibles')]
     private Collection $formateurs;
 
-    #[ORM\OneToMany(mappedBy: 'moduleFormation', targetEntity: Creneau::class)]
+    #[ORM\OneToMany(mappedBy: 'moduleFormation', targetEntity: Creneau::class, cascade: ['persist', 'remove'])]
     private Collection $creneaux;
 
     public function __construct()

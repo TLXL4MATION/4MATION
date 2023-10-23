@@ -24,7 +24,7 @@ class Formateur
     #[ORM\ManyToMany(targetEntity: ModuleFormation::class, inversedBy: 'formateurs')]
     private Collection $formationsPossibles;
 
-    #[ORM\OneToMany(mappedBy: 'formateur', targetEntity: Creneau::class)]
+    #[ORM\OneToMany(mappedBy: 'formateur', targetEntity: Creneau::class, cascade: ['persist', 'remove'])]
     private Collection $creneaux;
 
     #[ORM\OneToOne(inversedBy: 'formateur', cascade: ['persist', 'remove'])]

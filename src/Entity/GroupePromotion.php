@@ -21,7 +21,7 @@ class GroupePromotion
     #[ORM\ManyToOne(inversedBy: 'groupePromotions')]
     private ?Promotion $promotion = null;
 
-    #[ORM\OneToMany(mappedBy: 'groupePromotion', targetEntity: Creneau::class)]
+    #[ORM\OneToMany(mappedBy: 'groupePromotion', targetEntity: Creneau::class, cascade: ['persist', 'remove'])]
     private Collection $creneaux;
 
     public function __construct()
