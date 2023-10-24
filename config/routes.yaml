@@ -12,3 +12,8 @@ refuser_demande:
     path: '/refuser-demande/{id}'
     controller: 'App\Controller\DemandeController::refuserDemande'
     methods: ['POST']
+
+formationsPossibles:
+    path: '/formationsPossibles/{id}'
+    controller: 'App\Controller\ModulesFormations::formationsPossibles'
+    methods: ['POST']

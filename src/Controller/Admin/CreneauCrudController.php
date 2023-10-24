@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Creneau;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -33,13 +34,19 @@ class CreneauCrudController extends AbstractCrudController
             DateTimeField::new('dateFin'),
             AssociationField::new('sallePrincipale')->setFormTypeOption('attr.id', 'Creneau_sallePrincipale'),
             AssociationField::new('sallesSecondaires')->setFormTypeOption('attr.id', 'Creneau_salleSecondaire'),
-            AssociationField::new('formateur'),
-            AssociationField::new('moduleFormation'),
+            AssociationField::new('formateur')->addCssClass('formateur_custom'),
+            AssociationField::new('moduleFormation')->addCssClass('module_custom')->renderAsNativeWidget(),
             AssociationField::new('groupePromotion'),
             TextareaField::new("commentaire")->hideOnIndex()->setLabel("Modalités / Commentaire"),
             BooleanField::new("accepte"),
             BooleanField::new("envoye"),
         ];
+    }
+
+    public function configureAssets(Assets $assets): Assets
+    {
+        return $assets->addCssFile('https://code.jquery.com/jquery-3.6.0.min.js')->addJsFile('https://cdn.jsdelivr.net/npm/tom-select@2.2.3/dist/js/tom-select.complete.min.js')->addJsFile('js/custom.js'); // Chemin vers votre fichier JavaScript
+       
     }
 
 }
