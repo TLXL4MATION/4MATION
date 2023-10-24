@@ -171,7 +171,7 @@ class Creneau
 
     public function __toString(): string
     {
-        return $this->getModuleFormation()->getNom() . "\n<b>" . $this->getGroupePromotion()->getNom()."</b>";
+        return $this->getModuleFormation()->getNom() . "\n<b>" . $this->getGroupePromotion()->getNom() . "</b>";
     }
 
     public function isAccepte(): ?bool
@@ -229,6 +229,9 @@ class Creneau
         if (!$this->groupePromotionIsFree()) {
             $errors[] = "Le groupe promotion a déjà une formation sur ce créneau horaire";
         }
+        if ($this->isDateDebutSuperieureDateFin()) {
+            $errors[] = "La date de début ne peut pas être après à la date de fin";
+        }
         return $errors;
     }
 
@@ -252,6 +255,14 @@ class Creneau
             }
         }
         return true;
+    }
+
+    public function isDateDebutSuperieureDateFin(): bool
+    {
+        if ($this->dateDebut && $this->dateFin) {
+            return $this->dateDebut > $this->dateFin;
+        }
+        return false;
     }
 
 
