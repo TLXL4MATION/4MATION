@@ -65,7 +65,6 @@ class UserCrudController extends AbstractCrudController
             ->andWhere('CONTAINS(TO_JSONB(u.roles), :role) = TRUE')
             ->setParameter('role', '["ROLE_PLANNIFICATEUR"]');
 
-
         return $queryBuilder;
     }
 
