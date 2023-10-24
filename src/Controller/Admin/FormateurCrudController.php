@@ -66,7 +66,7 @@ class FormateurCrudController extends AbstractCrudController
         try {
             $entityManager->persist($entityInstance);
             $entityManager->flush();
-            $this->formateurService->sendMailForNewFormateur($entityInstance);
+            //$this->formateurService->sendMailForNewFormateur($entityInstance);
         } catch (Exception $e) {
             $this->addFlash('warning', 'Impossible de créer le Formateur, un formateur avec le même email existe déjà');
         } catch (TransportExceptionInterface $e) {
