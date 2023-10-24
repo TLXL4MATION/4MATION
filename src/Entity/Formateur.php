@@ -6,6 +6,7 @@ use App\Repository\FormateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FormateurRepository::class)]
 class Formateur
@@ -16,9 +17,19 @@ class Formateur
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Regex(
+        pattern: "/[0-9]/",
+        message: "Le nom ne doit pas comporter de chiffres",
+        match: false
+    )]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Regex(
+        pattern: "/[0-9]/",
+        message: "Le prénom ne doit pas comporter de chiffres",
+        match: false
+    )]
     private ?string $prenom = null;
 
     #[ORM\ManyToMany(targetEntity: ModuleFormation::class, inversedBy: 'formateurs')]

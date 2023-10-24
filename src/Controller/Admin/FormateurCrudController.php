@@ -47,8 +47,6 @@ class FormateurCrudController extends AbstractCrudController
             TextField::new("prenom", "Prénom"),
             AssociationField::new("adresse")
                 ->onlyOnForms()->renderAsEmbeddedForm(AdresseCrudController::class),
-            AssociationField::new("adresse")
-                ->hideOnForm()->renderAsNativeWidget(),
             AssociationField::new('formationsPossibles')
                 ->setFormTypeOption('choice_label', 'nom'),
             AssociationField::new('utilisateur')

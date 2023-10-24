@@ -16,7 +16,7 @@ class Campus
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $nom = null;
 
     #[ORM\OneToOne(inversedBy: 'campus', cascade: ['persist', 'remove'])]

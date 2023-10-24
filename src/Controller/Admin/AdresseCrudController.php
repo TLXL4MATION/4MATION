@@ -16,7 +16,7 @@ class AdresseCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('numero'),
+            TextField::new('numero')->setLabel("Numéro de rue"),
             TextField::new('rue'),
             TextField::new('codePostal'),
             TextField::new('ville'),
