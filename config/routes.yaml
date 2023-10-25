@@ -16,4 +16,4 @@ refuser_demande:
 formationsPossibles:
     path: '/formationsPossibles/{id}'
     controller: 'App\Controller\ModulesFormations::formationsPossibles'
-    methods: ['POST']
+    methods: ['GET']
