@@ -33,20 +33,23 @@ class CreneauCrudController extends AbstractCrudController
             DateTimeField::new('dateDebut'),
             DateTimeField::new('dateFin'),
             AssociationField::new('sallePrincipale')->setFormTypeOption('attr.id', 'Creneau_sallePrincipale'),
-            AssociationField::new('sallesSecondaires')->setFormTypeOption('attr.id', 'Creneau_salleSecondaire'),
+            AssociationField::new('sallesSecondaires')->setFormTypeOption('attr.id', 'Creneau_salleSecondaire')->hideOnIndex(),
             AssociationField::new('formateur')->addCssClass('formateur_custom'),
-            AssociationField::new('moduleFormation')->addCssClass('module_custom')->renderAsNativeWidget(),
+            AssociationField::new('moduleFormation')->addCssClass('module_custom')->renderAsNativeWidget()->setLabel("Formation"),
             AssociationField::new('groupePromotion'),
             TextareaField::new("commentaire")->hideOnIndex()->setLabel("Modalités / Commentaire"),
-            BooleanField::new("accepte"),
-            BooleanField::new("envoye"),
+            BooleanField::new("envoye")->hideOnIndex()->setLabel("Demander validation au formateur"),
+            BooleanField::new("accepte")->hideOnIndex()->setLabel("Imposer le créneau au formateur"),
+            BooleanField::new("envoye")->onlyOnIndex()->setLabel("Demande acceptée"),
+            BooleanField::new("accepte")->onlyOnIndex()->setLabel("Demande en attente"),
+
         ];
     }
 
     public function configureAssets(Assets $assets): Assets
     {
         return $assets->addCssFile('https://code.jquery.com/jquery-3.6.0.min.js')->addJsFile('https://cdn.jsdelivr.net/npm/tom-select@2.2.3/dist/js/tom-select.complete.min.js')->addJsFile('js/custom.js'); // Chemin vers votre fichier JavaScript
-       
+
     }
 
 }

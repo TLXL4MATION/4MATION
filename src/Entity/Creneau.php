@@ -182,6 +182,9 @@ class Creneau
     public function setAccepte(?bool $accepte): self
     {
         $this->accepte = $accepte;
+        if ($accepte) {
+            $this->setEnvoye(false);
+        }
 
         return $this;
     }
@@ -263,6 +266,14 @@ class Creneau
             return $this->dateDebut > $this->dateFin;
         }
         return false;
+    }
+
+    public function isOnlyOneCheck(): bool
+    {
+        if ($this->isEnvoye() && $this->isAccepte()) {
+            return false;
+        }
+        return true;
     }
 
 
