@@ -203,7 +203,7 @@ class Formateur
     /**
      * @return string
      */
-    public function getNombreDemande(): string
+    public function getNombreDemande(): int
     {
         return count(array_filter($this->getCreneaux()->toArray(), function($creneau) {
             return $creneau->isEnvoye();

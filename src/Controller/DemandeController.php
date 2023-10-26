@@ -61,7 +61,6 @@ class DemandeController extends AbstractController
         if ($this->estUtilisateurFormateurDuCreneau($id)) {
             $this->creneauRepository->setEnvoyeById($id, true);
             return $this->redirectToRoute('app_demandes');
-
         } else {
             return $this->redirectToRoute('app_login');
         }
@@ -77,10 +76,11 @@ class DemandeController extends AbstractController
         if ($formateur = $user->getFormateur()) {
 
             /** @var Formateur $formateur */
-            return new JsonResponse($formateur->getNombreDemande());
-        }
-        return new JsonResponse(0);
+            $data = ['nombreDemande' => $formateur->getNombreDemande()];
 
+            return new JsonResponse($data);
+        }
+        return new JsonResponse(['nombreDemande' => 0]);
     }
 
     /**
@@ -91,7 +91,6 @@ class DemandeController extends AbstractController
         if ($this->estUtilisateurFormateurDuCreneau($id)) {
             $this->creneauRepository->setEnvoyeById($id, false);
             return $this->redirectToRoute('app_demandes');
-
         } else {
             return $this->redirectToRoute('app_login');
         }

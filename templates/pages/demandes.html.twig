@@ -1,52 +1,63 @@
 {% extends 'base/main_template.html.twig' %}
 
-{% block title %}{{title}}{% endblock %}
+{% block title %}
+	{{title}}
+{% endblock %}
 
 {% block content %}
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-      
+	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+		<div class="chartjs-size-monitor">
+			<div class="chartjs-size-monitor-expand">
+				<div class=""></div>
+			</div>
+			<div class="chartjs-size-monitor-shrink">
+				<div class=""></div>
+			</div>
+		</div>
 
- 
-          <button type="button" class="btn btn-purple mb-3 mt-3" onclick="location.reload();">Rafraîchir la page</button>
 
-    
+		<button type="button" class="btn btn-purple mb-3 mt-3" onclick="location.reload();">Rafraîchir la page</button>
 
-        {% if demandes is empty %}
-            <p>Aucune demande en cours pour le moment.</p>
-        {% else %}
-            <table class="table table-striped table-4mation">
-                <thead>
-                    <tr>
-                        <th>Début</th>
-                        <th>Fin</th>
-                        <th>Groupe promotion</th>
-                        <th>Module</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for demande in demandes %}
-                        <tr>
-                            <td>{{ demande.dateDebut|date('d/m/Y - H:i') }}</td>
-                              <td>{{ demande.dateFin|date('d/m/Y - H:i') }}</td>
-                               <td>{{ demande.groupePromotion }}</td>
-                            <td>{{ demande.module }}</td>
-                            <td>
-                            <div class="btn-group" role="group">
-                                <form method="post" action="{{ path('accepter_demande', {'id': demande.id}) }}">
-                                    <button type="submit" class="btn btn-purple m-1">Accepter</button>
-                                </form>
-                                <form method="post" action="{{ path('refuser_demande', {'id': demande.id}) }}">
-                                    <button type="submit" class="btn btn-danger  m-1">Refuser</button>
-                                </form>
-                            </div>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% endif %}
-    </div>
-      
-    </main>
-{% endblock %}
+
+		{% if demandes is empty %}
+			<p>Aucune demande en cours pour le moment.</p>
+		{% else %}
+			<table class="table table-striped table-4mation">
+				<thead>
+					<tr>
+						<th>Début</th>
+						<th>Fin</th>
+						<th>Groupe promotion</th>
+						<th>Module</th>
+						<th>Campus</th>
+						<th>Adresse</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for demande in demandes %}
+						<tr>
+							<td>{{ demande.dateDebut|date('d/m/Y - H:i') }}</td>
+							<td>{{ demande.dateFin|date('d/m/Y - H:i') }}</td>
+							<td>{{ demande.groupePromotion }}</td>
+							<td>{{ demande.module }}</td>
+                            <td>{{ demande.nomCampus }}</td>
+							<td><a target="_blank" href="https://www.google.com/maps/place/{{ demande.numero ~ '+' ~ demande.rue ~ '+' ~ demande.ville ~ '+' ~ demande.codePostal }}">{{ demande.numero ~ ' ' ~ demande.rue ~ ', ' ~ demande.ville ~ ' ' ~ demande.codePostal }}</a></td>
+							<td>
+								<div class="btn-group " role="group">
+									<form method="post" action="{{ path('accepter_demande', {'id': demande.id}) }}">
+										<button type="submit" class="btn-demande btn btn-purple m-1">Accepter</button>
+									</form>
+									<form method="post" action="{{ path('refuser_demande', {'id': demande.id}) }}">
+										<button type="submit" class="btn-demande btn btn-danger  m-1">Refuser</button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+	</div>
+
+</main>{% endblock %}

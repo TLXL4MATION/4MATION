@@ -53,9 +53,12 @@ class CreneauRepository extends ServiceEntityRepository
     public function findDemandesByFormateur(Formateur $formateur)
     {
         return $this->createQueryBuilder('c')
-        ->select('c.id', 'c.dateDebut', 'c.dateFin', 'mf.nom as module', 'c.commentaire', 'gp.nom as groupePromotion')
+        ->select('c.id', 'c.dateDebut', 'c.dateFin','campus.nom as nomCampus', 'mf.nom as module', 'c.commentaire', 'gp.nom as groupePromotion', 'adresse.ville', 'adresse.pays', 'adresse.numero', 'adresse.rue', 'adresse.codePostal')
         ->join('c.moduleFormation', 'mf')
         ->join('c.groupePromotion', 'gp')
+        ->join('c.sallePrincipale', 'salle')
+        ->join('salle.campus', 'campus')
+        ->join('campus.adresse', 'adresse')
         ->where(':formateur = c.formateur AND c.envoye = :envoye')
         ->setParameter('formateur', $formateur)
         ->setParameter('envoye', true)
