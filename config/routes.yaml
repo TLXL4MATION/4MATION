@@ -17,3 +17,8 @@ formationsPossibles:
     path: '/formationsPossibles/{id}'
     controller: 'App\Controller\ModulesFormations::formationsPossibles'
     methods: ['GET']
+nombreDemandes:
+    path: '/nombreDemandes'
+    controller: 'App\Controller\DemandeController::nombreDemandes'
+    methods: [ 'GET' ]
+    

@@ -4,9 +4,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Formateur;
+use App\Entity\User;
 use App\Repository\CreneauRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,11 +27,10 @@ class DemandeController extends AbstractController
         $this->security = $security;
     }
 
-    private  function estUtilisateurFormateurDuCreneau(int $creneauId) : bool
+    private function estUtilisateurFormateurDuCreneau(int $creneauId): bool
     {
         $user = $this->security->getUser();
 
-     
 
         if (!$user) {
             return false; // L'utilisateur n'est pas connecté.
@@ -39,7 +41,6 @@ class DemandeController extends AbstractController
         if (!$creneau) {
             return false; // Le créneau n'existe pas.
         }
-
 
 
         // Compare l'ID du formateur du créneau avec l'ID de l'utilisateur
@@ -57,13 +58,29 @@ class DemandeController extends AbstractController
     public function accepterDemande(Security $security, Request $request, $id): Response
     {
 
-        if($this->estUtilisateurFormateurDuCreneau($id)){
+        if ($this->estUtilisateurFormateurDuCreneau($id)) {
             $this->creneauRepository->setEnvoyeById($id, true);
             return $this->redirectToRoute('app_demandes');
-                   
+
         } else {
             return $this->redirectToRoute('app_login');
         }
+    }
+
+    /**
+     * @Route("/nombreDemandes", name="accepter_demande")
+     */
+    public function nombreDemandes(Security $security, Request $request): Response
+    {
+        $user = $this->security->getUser();
+
+        if ($formateur = $user->getFormateur()) {
+
+            /** @var Formateur $formateur */
+            return new JsonResponse($formateur->getNombreDemande());
+        }
+        return new JsonResponse(0);
+
     }
 
     /**
@@ -71,10 +88,10 @@ class DemandeController extends AbstractController
      */
     public function refuserDemande(Security $security, Request $request, $id): Response
     {
-        if($this->estUtilisateurFormateurDuCreneau($id)){
+        if ($this->estUtilisateurFormateurDuCreneau($id)) {
             $this->creneauRepository->setEnvoyeById($id, false);
             return $this->redirectToRoute('app_demandes');
-           
+
         } else {
             return $this->redirectToRoute('app_login');
         }

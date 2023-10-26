@@ -200,4 +200,14 @@ class Formateur
         return $this->mdpInitialise ? "Changé" : "Non Changé";
     }
 
+    /**
+     * @return string
+     */
+    public function getNombreDemande(): string
+    {
+        return count(array_filter($this->getCreneaux()->toArray(), function($creneau) {
+            return $creneau->isEnvoye();
+        }));
+    }
+
 }
