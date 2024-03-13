@@ -14,7 +14,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.14",
         "easycorp/easyadmin-bundle": "^4.6",
-        "martin-georgiev/postgresql-for-doctrine": "*",
+        "martin-georgiev/postgresql-for-doctrine": "^2.4",
         "symfony/console": "6.2.*",
         "symfony/dotenv": "6.2.*",
         "symfony/flex": "^2",
